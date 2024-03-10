@@ -49,4 +49,20 @@ public class StudentDAO_Imp implements StudentDAO {
         }
         return  statut;
     }
+
+
+    public void update(Student student){
+        try(Connection connection=db.getConnection();
+            PreparedStatement preparedStatement=connection.prepareStatement("update student set nom = ?,prenom= ?, email =? where id = ?;")){
+            preparedStatement.setString(1,student.getNom());
+            preparedStatement.setString(2,student.getPrenom());
+            preparedStatement.setString(3,student.getEmail());
+            preparedStatement.setInt(4,student.getId());
+            preparedStatement.executeUpdate() ;
+        }
+        catch (SQLException E){
+            E.printStackTrace();
+        }
+    }
+
 }
